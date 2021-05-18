@@ -1,0 +1,32 @@
+---
+title: "India Population Data Census"
+author: "Kumar Shaket"
+date: "18/05/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Summary
+
+As part of this assignment I will showing change in population in 10 years from 2001 to 2011 across different districts in India using Leaflet Maps
+
+```{r,echo=FALSE}
+library(leaflet)
+```
+### Loading India Population Census Data for 2001 and 2011 across Districts
+```{r,echo=FALSE}
+indiadis <- read.csv("~/Desktop/Coursera/DataProductWeek2Assignment/archive/district wise population and centroids.csv")
+head(indiadis)
+```
+### Summary of Data loaded in the table
+```{r,echo=FALSE}
+summary(indiadis)
+```
+### Displaying Data Cluster across different states with population in 2001 and 2011 on popup
+```{r,echo=FALSE}
+indiadis%>%leaflet()%>%addTiles()%>%addMarkers(lat = indiadis$Latitude,lng = indiadis$Longitude,clusterOptions = markerClusterOptions(indiadis$State),popup = paste("State:",indiadis$State,"<br>", "District:",indiadis$District,"<br>","Population in 2001:",indiadis$Population.in.2001,"<br>","Population in 2011:",indiadis$Population.in.2011))
+```
+
